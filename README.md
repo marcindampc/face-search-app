@@ -1,3 +1,8 @@
+# FACE SEARCH APP
+* App will use API to recognize faces on photos provided by user.
+
+----
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

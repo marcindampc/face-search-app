@@ -41,10 +41,12 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input})
     app.models
-      .predict("a403429f2ddf4b49b307e318f00e528b", this.state.input)
+      .predict(
+        Clarifai.FACE_DETECT_MODEL,
+        this.state.input)
       .then(
         function(response) {
-          console.log(response);
+          console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
         },
         function(err) {
           // there was an error
@@ -64,7 +66,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
           />
-        <FaceRecognition 
+        <FaceRecognition
           imageUrl={this.state.imageUrl} />
       </div>
     )

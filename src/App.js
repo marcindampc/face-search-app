@@ -43,12 +43,11 @@ class App extends Component {
     const width = Number(image.width);
 
     return {
-      leftCol: (clarifaiFace.left_col * width),
-      topRow: (clarifaiFace.top_row * height),
-      rightCol: (width - (clarifaiFace.right_col * width)),
-      bottomRow: (height - (clarifaiFace.bottom_row * height))
-    }
-  }
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
+  }}
 
   displayFaceBox = (box) => {
     console.log(box)
@@ -83,7 +82,8 @@ class App extends Component {
           calculateFaceLocation={this.calculateFaceLocation}
           />
         <FaceRecognition
-          imageUrl={this.state.imageUrl} />
+          imageUrl={this.state.imageUrl}
+          box={this.state.box} />
       </div>
     )
   }

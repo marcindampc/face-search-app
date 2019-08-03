@@ -30,7 +30,22 @@ class App extends Component {
     super();
     this.state = {
       input: '',
-      imageUrl: ''
+      imageUrl: '',
+      box: {}
+    }
+  }
+
+  calculateFaceLocation = (data) => {
+    // first set bounding box for 1 face. TO DO: rewrite for multiple faces
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputImage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: clarifaiFace.leftCol * width,
+      topRow: clarifaiFace.topRow * height,
+      rightCol: width - (clarifaiFace.rightCol * width),
+      bottomRow: height - (clarifaiFace.bottomRow * height)
     }
   }
 
@@ -44,14 +59,8 @@ class App extends Component {
       .predict(
         Clarifai.FACE_DETECT_MODEL,
         this.state.input)
-      .then(
-        function(response) {
-          console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
-        },
-        function(err) {
-          // there was an error
-        }
-  );
+      .then(response => this.calculateFaceLocation(response))
+      .catch(error => console.log(error))
   }
 
   render(){
@@ -65,6 +74,7 @@ class App extends Component {
         <ImageLinkForm
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
+          calculateFaceLocation={this.calculateFaceLocation}
           />
         <FaceRecognition
           imageUrl={this.state.imageUrl} />

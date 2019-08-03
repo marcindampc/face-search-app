@@ -39,14 +39,20 @@ class App extends Component {
     // first set bounding box for 1 face. TO DO: rewrite for multiple faces
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
-    const width = Number(image.width);
     const height = Number(image.height);
+    const width = Number(image.width);
+
     return {
-      leftCol: clarifaiFace.leftCol * width,
-      topRow: clarifaiFace.topRow * height,
-      rightCol: width - (clarifaiFace.rightCol * width),
-      bottomRow: height - (clarifaiFace.bottomRow * height)
+      leftCol: (clarifaiFace.left_col * width),
+      topRow: (clarifaiFace.top_row * height),
+      rightCol: (width - (clarifaiFace.right_col * width)),
+      bottomRow: (height - (clarifaiFace.bottom_row * height))
     }
+  }
+
+  displayFaceBox = (box) => {
+    console.log(box)
+    this.setState({box: box});
   }
 
   onInputChange = (event) => {
@@ -59,7 +65,7 @@ class App extends Component {
       .predict(
         Clarifai.FACE_DETECT_MODEL,
         this.state.input)
-      .then(response => this.calculateFaceLocation(response))
+      .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(error => console.log(error))
   }
 

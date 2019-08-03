@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignIn = () => {
+const SignIn = ({ onRouteChange }) => {
   return(
     <article className="mw6 center br4 pa3 pa4-ns mv4 w-100 w-50-m w-25-1 ba b--white-10 shadow-5">
       <main className="pa4 black-80">
@@ -17,7 +17,10 @@ const SignIn = () => {
             </div>
           </fieldset>
           <div className="">
-            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" />
+            <input
+              onClick={onRouteChange}
+              className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit"
+              value="Sign in" />
           </div>
           <div className="lh-copy mt3">
             <a href="#0" className="f6 link dim black db">Register</a>

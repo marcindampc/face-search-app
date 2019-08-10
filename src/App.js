@@ -39,6 +39,12 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3000')
+      .then(response => response.json()
+      .then(console.log))
+  }
+
   calculateFaceLocation = (data) => {
     // first set bounding box for 1 face. TO DO: rewrite for multiple faces
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;

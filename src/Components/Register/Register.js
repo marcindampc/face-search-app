@@ -9,8 +9,22 @@ class Register extends React.Component {
       name: ''
     }
   }
-  
+
+  onNameChange = (event) => {
+    this.setState({name: event.target.value})
+  }
+
+  onEmailChange = (event) => {
+    this.setState({email: event.target.value})
+  }
+
+  onPasswordChange = (event) => {
+    this.setState({password: event.target.value})
+  }
+
   render() {
+    const { onRouteChange } = this.props;
+
     return(
       <article className="mw6 center br4 pa3 pa4-ns mv4 w-100 w-50-m w-25-1 ba b--white-10 shadow-5">
         <main className="pa4 black-80">
@@ -32,7 +46,7 @@ class Register extends React.Component {
             </fieldset>
             <div className="">
               <input
-                onClick={() => this.props.onRouteChange('home')}
+                onClick={() => onRouteChange('home')}
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit"
                 value="Register" />
             </div>

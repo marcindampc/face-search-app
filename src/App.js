@@ -86,7 +86,7 @@ class App extends Component {
         this.state.input)
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image', 
+          fetch('http://localhost:3000/image',
           {
             method: 'put',
             headers: {
@@ -129,6 +129,7 @@ class App extends Component {
               <Logo />
               <Rank
                 name={this.state.user.name}
+                entries={this.state.user.entries}
                 onRouteChange={this.onRouteChange} />
               <ImageLinkForm
                 onInputChange={this.onInputChange}

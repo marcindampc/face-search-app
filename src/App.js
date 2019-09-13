@@ -86,15 +86,17 @@ class App extends Component {
         this.state.input)
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image',
-          {
+          fetch('http://localhost:3000/image', {
             method: 'put',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               id: this.state.user.id
             })
+          })
+          .then(res => res.json())
+          .then(count => {
+            console.log(count);
+            this.setState(Object.assign(this.state.user, { entries: count }))
           })
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
@@ -104,7 +106,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState({isSignedIn: false, route: 'signin'})
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
@@ -113,7 +115,6 @@ class App extends Component {
 
 
   render(){
-
     const { isSignedIn, route, imageUrl, box } = this.state;
     return (
       <div className="App">
@@ -123,7 +124,6 @@ class App extends Component {
           onRouteChange={this.onRouteChange}
           isSignedIn={isSignedIn}
           />
-
         { route === 'home'
           ? <div>
               <Logo />
@@ -134,7 +134,6 @@ class App extends Component {
               <ImageLinkForm
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
-                // calculateFaceLocation={this.calculateFaceLocation}
               />
               <FaceRecognition
                 imageUrl={imageUrl}

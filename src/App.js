@@ -84,13 +84,29 @@ class App extends Component {
       .predict(
         Clarifai.FACE_DETECT_MODEL,
         this.state.input)
-      .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-      .catch(error => console.log(error))
+      .then(response => {
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+          .then(res => res.json())
+          .then(count => {
+            console.log(count);
+            this.setState(Object.assign(this.state.user, { entries: count }))
+          })
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
+      .catch(error => console.log(error));
   }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState({isSignedIn: false, route: 'signin'})
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
@@ -99,7 +115,6 @@ class App extends Component {
 
 
   render(){
-
     const { isSignedIn, route, imageUrl, box } = this.state;
     return (
       <div className="App">
@@ -109,18 +124,17 @@ class App extends Component {
           onRouteChange={this.onRouteChange}
           isSignedIn={isSignedIn}
           />
-
         { route === 'home'
           ? <div>
               <Logo />
-              <Rank
-                name={this.state.user.name}
-                onRouteChange={this.onRouteChange} />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
-                // calculateFaceLocation={this.calculateFaceLocation}
               />
+              <Rank
+                name={this.state.user.name}
+                entries={this.state.user.entries}
+                onRouteChange={this.onRouteChange} />
               <FaceRecognition
                 imageUrl={imageUrl}
                 box={box} />

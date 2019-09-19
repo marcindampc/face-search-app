@@ -1,5 +1,9 @@
 # FACE SEARCH APP
-* App will use API to recognize faces on photos provided by user.
+* build with React
+* llogin/register option
+* App will use API to recognize faces on photos provided by user. (Clarifai)
+* server made with node.js + express.js
+* relational database: PostgreSQL, connected with Knex
 
 ----
 

@@ -32,7 +32,7 @@ const initialState = {
         id: '',
         name: '',
         entries: 0,
-        joined: new Date()
+        joined: ''
       }
     }
 

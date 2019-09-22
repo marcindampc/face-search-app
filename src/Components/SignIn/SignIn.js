@@ -1,4 +1,4 @@
-import React from './node_modules/react';
+import React from 'react';
 
 class SignIn extends React.Component {
   constructor(props) {

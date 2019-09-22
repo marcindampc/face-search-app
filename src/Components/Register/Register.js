@@ -1,4 +1,4 @@
-import React from './node_modules/react';
+import React from 'react';
 
 class Register extends React.Component {
   constructor(props) {

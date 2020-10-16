@@ -5,6 +5,11 @@
 * server made with node.js + express.js
 * relational database: PostgreSQL, connected with Knex
 
+## To see
+1. download
+2. `npm install`
+3. `npm start`
+
 ----
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
